@@ -1,0 +1,37 @@
+# The Caddyfile is an easy way to configure your Caddy web server.
+#
+# Unless the file starts with a global options block, the first
+# uncommented line is always the address of your site.
+
+(cloudflare) {
+	tls {
+		dns cloudflare $CF_API_TOKEN
+		resolvers 1.1.1.1
+	}
+}
+
+dadora.casa {
+	import cloudflare
+	root * /usr/share/caddy
+	file_server
+}
+
+photos.dadora.casa {
+	import cloudflare
+	reverse_proxy localhost:2283
+}
+
+dash.dadora.casa {
+	import cloudflare
+	reverse_proxy localhost:82
+}
+
+mealie.dadora.casa {
+	import cloudflare
+	reverse_proxy localhost:9925
+}
+
+files.dadora.casa {
+	import cloudflare
+	reverse_proxy localhost:7580
+}

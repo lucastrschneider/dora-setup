@@ -1,0 +1,3 @@
+# Application configuration
+
+TODO: @pedro
