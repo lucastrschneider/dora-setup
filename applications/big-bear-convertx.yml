@@ -2,6 +2,7 @@ name: big-bear-convertx
 services:
     big-bear-convertx:
         cpu_shares: 90
+        command: []
         container_name: convertx
         deploy:
             resources:
@@ -14,7 +15,7 @@ services:
             HIDE_HISTORY: "false"
             HTTP_ALLOWED: "false"
             JWT_SECRET: e33324e7-f264-4417-94c2-24e081f7bfaf
-        hostname: big-bear-convertx
+        hostname: convertx
         image: ghcr.io/c4illin/convertx:v0.14.1
         labels:
             icon: https://cdn.jsdelivr.net/gh/bigbeartechworld/big-bear-casaos/Apps/convertx/logo.png
@@ -23,7 +24,7 @@ services:
         restart: unless-stopped
         volumes:
             - type: bind
-              source: /DATA/AppData/big-bear-convertx/data
+              source: /dora-storage/AppData/big-bear-convertx/data
               target: /app/data
               bind:
                 create_host_path: true

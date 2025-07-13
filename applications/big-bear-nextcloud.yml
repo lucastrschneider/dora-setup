@@ -26,7 +26,7 @@ services:
         restart: unless-stopped
         volumes:
             - type: bind
-              source: /DATA/AppData/big-bear-nextcloud/html
+              source: /dora-storage/AppData/big-bear-nextcloud/html
               target: /var/www/html
               bind:
                 create_host_path: true
@@ -58,7 +58,7 @@ services:
         restart: unless-stopped
         volumes:
             - type: bind
-              source: /DATA/AppData/big-bear-nextcloud/pgdata
+              source: /dora-storage/AppData/big-bear-nextcloud/pgdata
               target: /var/lib/postgresql/data
               bind:
                 create_host_path: true
@@ -98,7 +98,7 @@ services:
         restart: unless-stopped
         volumes:
             - type: bind
-              source: /DATA/AppData/big-bear-nextcloud/html
+              source: /dora-storage/AppData/big-bear-nextcloud/html
               target: /var/www/html
               bind:
                 create_host_path: true
@@ -127,7 +127,7 @@ services:
         user: 1000:1000
         volumes:
             - type: bind
-              source: /DATA/AppData/big-bear-nextcloud/redis
+              source: /dora-storage/AppData/big-bear-nextcloud/redis
               target: /data
               bind:
                 create_host_path: true

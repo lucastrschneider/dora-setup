@@ -42,7 +42,7 @@ services:
         restart: unless-stopped
         volumes:
             - type: bind
-              source: /DATA/AppData/immich/pgdata
+              source: /dora-storage/AppData/immich/pgdata
               target: /var/lib/postgresql/data
               bind:
                 create_host_path: true
@@ -68,7 +68,7 @@ services:
         restart: unless-stopped
         volumes:
             - type: bind
-              source: /DATA/AppData/immich/model-cache
+              source: /dora-storage/AppData/immich/model-cache
               target: /cache
               bind:
                 create_host_path: true
@@ -103,7 +103,7 @@ services:
         restart: unless-stopped
         volumes:
             - type: bind
-              source: /DATA/Gallery/immich
+              source: /dora-storage/Gallery/immich
               target: /usr/src/app/upload
               bind:
                 create_host_path: true
@@ -134,7 +134,7 @@ services:
         restart: unless-stopped
         volumes:
             - type: bind
-              source: /DATA/AppData/immich/redis
+              source: /dora-storage/AppData/immich/redis
               target: /data
               bind:
                 create_host_path: true
