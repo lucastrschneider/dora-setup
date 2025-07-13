@@ -155,6 +155,7 @@ Click `Add SSL Certificate` and then click `Let's Encrypt` and a form pop-up wil
 - Email Address for Let's Encrypt: `doratrschneider@gmail.com`
 - Toggle `Use a DNS Challenge` on
   - DNS Provider: Choose `Cloudflare`
+  - Credentials File Content: Make sure to fill in your `dns_cloudflare_api_token` that you created in the [API Token section](./external-config.md#api-token) in the external config section
   - Propagation settings: leave blank
 - Agree to the Let's Encrypt Terms of Service
 - Click `Save`
