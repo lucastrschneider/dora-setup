@@ -1,0 +1,167 @@
+name: big-bear-nextcloud
+services:
+    cron:
+        cpu_shares: 90
+        command: []
+        container_name: nextcloud-cron
+        depends_on:
+            db-nextcloud:
+                condition: service_healthy
+                required: true
+            redis-nextcloud:
+                condition: service_healthy
+                required: true
+        deploy:
+            resources:
+                limits:
+                    memory: "16609443840"
+        entrypoint:
+            - /cron.sh
+        hostname: nextcloud-cron
+        image: bigbeartechworld/big-bear-nextcloud-with-smbclient:0.0.10
+        labels:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nextcloud.png
+        networks:
+            dora-network: null
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: /DATA/AppData/big-bear-nextcloud/html
+              target: /var/www/html
+              bind:
+                create_host_path: true
+    db-nextcloud:
+        cpu_shares: 90
+        command: []
+        container_name: nextcloud-db
+        deploy:
+            resources:
+                limits:
+                    memory: "16609443840"
+        environment:
+            POSTGRES_DB: nextcloud
+            POSTGRES_PASSWORD: casaos
+            POSTGRES_USER: casaos
+        hostname: nextcloud-db
+        healthcheck:
+            test:
+                - CMD-SHELL
+                - pg_isready -U casaos -d nextcloud
+            timeout: 5s
+            interval: 10s
+            retries: 5
+        image: postgres:14.2
+        labels:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nextcloud.png
+        networks:
+            dora-network: null
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: /DATA/AppData/big-bear-nextcloud/pgdata
+              target: /var/lib/postgresql/data
+              bind:
+                create_host_path: true
+    nextcloud:
+        cpu_shares: 90
+        command: []
+        container_name: nextcloud
+        depends_on:
+            db-nextcloud:
+                condition: service_healthy
+                required: true
+            redis-nextcloud:
+                condition: service_healthy
+                required: true
+        deploy:
+            resources:
+                limits:
+                    memory: "16609443840"
+        environment:
+            NEXTCLOUD_ADMIN_PASSWORD: casaos
+            NEXTCLOUD_ADMIN_USER: casaos
+            OVERWRITEPROTOCOL: http
+            PHP_MEMORY_LIMIT: 1024M
+            PHP_UPLOAD_LIMIT: 1024M
+            POSTGRES_DB: nextcloud
+            POSTGRES_HOST: db-nextcloud
+            POSTGRES_PASSWORD: casaos
+            POSTGRES_USER: casaos
+            REDIS_HOST: redis-nextcloud
+            TRUSTED_PROXIES: ""
+        hostname: nextcloud
+        image: bigbeartechworld/big-bear-nextcloud-with-smbclient:0.0.10
+        labels:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nextcloud.png
+        networks:
+            dora-network: null
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: /DATA/AppData/big-bear-nextcloud/html
+              target: /var/www/html
+              bind:
+                create_host_path: true
+    redis-nextcloud:
+        cpu_shares: 90
+        command: []
+        container_name: nextcloud-redis
+        deploy:
+            resources:
+                limits:
+                    memory: "16609443840"
+        hostname: nextcloud-redis
+        healthcheck:
+            test:
+                - CMD-SHELL
+                - redis-cli ping || exit 1
+            timeout: 5s
+            interval: 10s
+            retries: 5
+        image: redis:6.2.6
+        labels:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nextcloud.png
+        networks:
+            dora-network: null
+        restart: unless-stopped
+        user: 1000:1000
+        volumes:
+            - type: bind
+              source: /DATA/AppData/big-bear-nextcloud/redis
+              target: /data
+              bind:
+                create_host_path: true
+networks:
+    dora-network:
+        name: dora-network
+x-casaos:
+    architectures:
+        - amd64
+        - arm64
+    author: BigBearTechWorld
+    category: BigBearCasaOS
+    description:
+        en_us: Nextcloud puts your data at your fingertips, under your control. Store your documents, calendar, contacts and photos on a server at home, at one of our providers or in a data center you trust.
+    developer: nextcloud
+    hostname: files.dadora.casa
+    icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nextcloud.png
+    index: /
+    is_uncontrolled: false
+    main: nextcloud
+    port_map: ""
+    scheme: https
+    screenshot_link:
+        - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Nextcloud/screenshot-1.png
+        - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Nextcloud/screenshot-2.png
+        - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Nextcloud/screenshot-3.png
+    store_app_id: big-bear-nextcloud
+    tagline:
+        en_us: The productivity platform that keeps you in control
+    thumbnail: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Nextcloud/thumbnail.jpg
+    tips:
+        before_install:
+            en_us: |
+                Read the [Nextcloud installation guide](https://community.bigbeartechworld.com/t/added-nextcloud-to-bigbearcasaos/455?u=dragonfire1119)
+    title:
+        custom: ""
+        en_us: Nextcloud

@@ -1,3 +1,0 @@
-# Mealie
-
-TODO: @lucas

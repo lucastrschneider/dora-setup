@@ -123,6 +123,24 @@ Change the WebUI port to port 82.
 
 ![CasaOS WebUI port configuration](./assets/casaos_port.png)
 
+### Configure Docker
+
+Run these commands to add the user to the docker group
+
+```bash
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+Now reboot.
+
+Now, create the docker bridge network
+
+```bash
+sudo docker network create --label com.docker.compose.network=dora-network dora-network
+```
+
 ### Import and export Dockerfiles
 
 TODO: @pedro
