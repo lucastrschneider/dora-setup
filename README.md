@@ -175,7 +175,7 @@ Click `Add Proxy Host` and a form pop-up will appear. You'll need to fill in the
   - Scheme: `http`
   - Forward Hostname / IP: The hostnmae of the application you want to forward requests from. This will be the name of the Docker Container of the app
   - Forward Port: The port the aplication exposes on the Docker network
-  - Leave the rest as is
+  - Enable `Cache Assets` and `Block Common Exploits` and leave `Websocket Support` disabled
 - Under SSL:
   - SSL Certificate: Choose the one you created on the previous step
   - Enable `Force SSL`
@@ -187,3 +187,7 @@ Click `Add Proxy Host` and a form pop-up will appear. You'll need to fill in the
 Repeat these steps for every application you have on the server. The final result should look like this:
 
 ![Proxy Hosts](./assets/proxy_hosts.png)
+
+#### Important exceptions
+
+- When creating a Proxy Host for Immich, make sure to enable `Websocket Support`
