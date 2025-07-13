@@ -119,20 +119,50 @@ Install CasaOS using the standard installation method.
 curl -fsSL https://get.casaos.io | sudo bash
 ```
 
-Change the WebUI port to something other than 80, like 82.
+Change the WebUI port to port 82.
 
 ![CasaOS WebUI port configuration](./assets/casaos_port.png)
 
-Then, install all the apps that you want. The specific configuration for the applications currently being used can be found at the [applications folder](./applications)
+### Import and export Dockerfiles
 
-## Caddy
+TODO: @pedro
 
-Install `xcaddy`
+## Nginx Proxy Manager
 
-```bash
-sudo apt install xcaddy
-```
+### SSL Certificates
 
-TODO: pedro
-Check caddy certificates, how to run, systemclt, caddy run, etc
-Check root domain
+Click `Add SSL Certificate` and then click `Let's Encrypt` and a form pop-up will appear. You'll need to fill these fields:
+
+- Domain Names: `*.dadora.casa` and `dadora.casa`
+- Email Address for Let's Encrypt: `doratrschneider@gmail.com`
+- Toggle `Use a DNS Challenge` on
+  - DNS Provider: Choose `Cloudflare`
+  - Propagation settings: leave blank
+- Agree to the Let's Encrypt Terms of Service
+- Click `Save`
+
+The final result should look like this:
+
+![SSL Certificate Settings](./assets/ssl_certificates.png)
+
+### Hosts > Proxy Hosts
+
+Click `Add Proxy Host` and a form pop-up will appear. You'll need to fill in the fields as follows:
+
+- Under `Details`:
+  - Domain Names: The domain name you want your application to have (e.g. `dash.dadora.casa`)
+  - Scheme: `http`
+  - Forward Hostname / IP: The hostnmae of the application you want to forward requests from. This will be the name of the Docker Container of the app
+  - Forward Port: The port the aplication exposes on the Docker network
+  - Leave the rest as is
+- Under SSL:
+  - SSL Certificate: Choose the one you created on the previous step
+  - Enable `Force SSL`
+  - Enable `HTTP/2 Support`
+  - Leave the rest disabled
+- You can ignore the rest of the settings
+- Click Save
+
+Repeat these steps for every application you have on the server. The final result should look like this:
+
+![Proxy Hosts](./assets/proxy_hosts.png)

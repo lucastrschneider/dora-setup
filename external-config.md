@@ -8,7 +8,7 @@ Leave everything default, don't try to mess with MagicDNS or similar, just use t
 
 Buy domain and configure DNS records as following.
 
-![DNS records configuration](./assets/dns_records.png)
+![Cloudflare DNS Settings](./assets/dns_settings.png)
 
 ### API token
 
