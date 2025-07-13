@@ -143,7 +143,9 @@ sudo docker network create --label com.docker.compose.network=dora-network dora-
 
 ### Import and export Dockerfiles
 
-TODO: @pedro
+To import and export your currently running dockerfiles, simply run the scripts in `scripts/import-docker-compose.sh` and `scripts/export-docker-compose.sh` respectively.
+
+They will export all your dockerfiles to the `applications` folder, and import all of them from there as well. If you want to filter which files you'll import, just change their file extensions temporarily. The import script will only import `.yml` files.
 
 ## Nginx Proxy Manager
 
