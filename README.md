@@ -190,4 +190,10 @@ Repeat these steps for every application you have on the server. The final resul
 
 #### Important exceptions
 
-- When creating a Proxy Host for Immich, make sure to enable `Websocket Support`
+Immich:
+
+- When creating the Proxy Host, make sure to enable `Websocket Support`
+
+Portainer
+
+- When creating the Proxy Host, make sure to set it to `https` instead of `http`
